@@ -359,7 +359,7 @@ extension LocationPickerViewController: UISearchResultsUpdating {
 
 extension LocationPickerViewController {
     @objc func addLocation(_ gestureRecognizer: UIGestureRecognizer) {
-		if gestureRecognizer.state == .began {
+		if gestureRecognizer.state == .ended {
 			let point = gestureRecognizer.location(in: mapView)
 			let coordinates = mapView.convert(point, toCoordinateFrom: mapView)
 			let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
@@ -369,6 +369,21 @@ extension LocationPickerViewController {
             selectLocation(location: location)
 		}
 	}
+    
+    
+    func showSelectCurrentLocationDialog(location: CLLocation) {
+        let alertController = UIAlertController(title: nil, message: "Select current location as your address?", preferredStyle: .actionSheet)
+        
+        let selectAction = UIAlertAction(title: "Select", style: .default) { _ in
+            self.selectLocation(location: location)
+        }
+        alertController.addAction(selectAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 // MARK: MKMapViewDelegate
@@ -386,7 +401,7 @@ extension LocationPickerViewController: MKMapViewDelegate {
 		// drop only on long press gesture
 		let fromLongPress = annotation is MKPointAnnotation
 		pin.animatesDrop = fromLongPress
-		pin.rightCalloutAccessoryView = selectLocationButton()
+//		pin.rightCalloutAccessoryView = selectLocationButton()
 		pin.canShowCallout = !fromLongPress
 		return pin
 	}
