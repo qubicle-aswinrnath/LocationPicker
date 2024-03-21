@@ -157,7 +157,7 @@ open class LocationPickerViewController: UIViewController {
 		searchBar.delegate = self
 		
 		// gesture recognizer for adding by tap
-        let locationSelectGesture = UILongPressGestureRecognizer(
+        let locationSelectGesture = UITapGestureRecognizer(
             target: self, action: #selector(addLocation(_:)))
         locationSelectGesture.delegate = self
 		mapView.addGestureRecognizer(locationSelectGesture)
@@ -280,6 +280,9 @@ open class LocationPickerViewController: UIViewController {
                 self.location = Location(name: name, location: location, placemark: placemark)
             }
         }
+        let bottomDialogVC = BottomDialogViewController()
+        bottomDialogVC.modalPresentationStyle = .overCurrentContext
+        present(bottomDialogVC, animated: true, completion: nil)
     }
 }
 
@@ -408,7 +411,7 @@ extension LocationPickerViewController: MKMapViewDelegate {
 	
 	func selectLocationButton() -> UIButton {
 		let button = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-		button.setTitle(selectButtonTitle, for: UIControl.State())
+//		button.setTitle(selectButtonTitle, for: UIControl.State())
         if let titleLabel = button.titleLabel {
             let width = titleLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: Int.max, height: 30), limitedToNumberOfLines: 1).width
             button.frame.size = CGSize(width: width, height: 30.0)
