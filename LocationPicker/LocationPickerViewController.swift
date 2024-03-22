@@ -34,6 +34,8 @@ open class LocationPickerViewController: UIViewController {
 	/// see `region` property of `MKLocalSearchRequest`
 	/// default: false
 	public var useCurrentLocationAsHint = false
+    
+    public var showCurrentLocationIcon = true
 	
 	/// default: "Search or enter an address"
 	public var searchBarPlaceholder = "Search or enter an address"
@@ -252,6 +254,7 @@ open class LocationPickerViewController: UIViewController {
         TTGSnackbarManager.shared.dismiss()
 		mapView.removeAnnotations(mapView.annotations)
 		if let location = location {
+            mapView.showsUserLocation = showCurrentLocationIcon
 			mapView.addAnnotation(location)
 			mapView.selectAnnotation(location, animated: true)
             
