@@ -75,6 +75,10 @@ open class LocationPickerViewController: UIViewController {
 			}
 		}
 	}
+    
+    public var pinColor : UIColor = UIColor(red: 251.0/255.0, green: 186.0/255.0, blue: 22.0/255.0, alpha: 1.0)
+    
+    public var addressSelectionBtnTitle : String = "Select"
 	
 	static let SearchTermKey = "SearchTermKey"
 	
@@ -125,7 +129,7 @@ open class LocationPickerViewController: UIViewController {
 		view = mapView
 		
 		if showCurrentLocationButton {
-			let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+            let button = UIButton(frame: CGRect(x: 300, y: self.mapView.frame.height - 60, width: 32, height: 32))
 			button.backgroundColor = currentLocationButtonBackground
 			button.layer.masksToBounds = true
 			button.layer.cornerRadius = 16
@@ -245,10 +249,22 @@ open class LocationPickerViewController: UIViewController {
 	}
 	
 	func updateAnnotation() {
+        TTGSnackbarManager.shared.dismiss()
 		mapView.removeAnnotations(mapView.annotations)
 		if let location = location {
 			mapView.addAnnotation(location)
 			mapView.selectAnnotation(location, animated: true)
+            
+            
+            let snackbar = TTGSnackbar(message: location.address, duration: .forever)
+            // Action 1
+            snackbar.actionText = addressSelectionBtnTitle
+            snackbar.actionTextColor = pinColor
+            snackbar.actionBlock = { (snackbar) in
+                self.completion?(location)
+                snackbar.dismiss() }
+
+            TTGSnackbarManager.shared.show(snackbar: snackbar)
 		}
 	}
 	
@@ -280,9 +296,6 @@ open class LocationPickerViewController: UIViewController {
                 self.location = Location(name: name, location: location, placemark: placemark)
             }
         }
-        let bottomDialogVC = BottomDialogViewController()
-        bottomDialogVC.modalPresentationStyle = .overCurrentContext
-        present(bottomDialogVC, animated: true, completion: nil)
     }
 }
 
@@ -394,21 +407,26 @@ extension LocationPickerViewController {
 extension LocationPickerViewController: MKMapViewDelegate {
 	public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		if annotation is MKUserLocation { return nil }
-		
-		let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-        if #available(iOS 9.0, *) {
-            pin.pinTintColor = .green
-        } else {
-            pin.pinColor = .green
+		        
+        let reuseIdentifier = "annotation"
+        
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        if view == nil {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
         }
-		// drop only on long press gesture
-		let fromLongPress = annotation is MKPointAnnotation
-		pin.animatesDrop = fromLongPress
-//		pin.rightCalloutAccessoryView = selectLocationButton()
-		pin.canShowCallout = !fromLongPress
-		return pin
+        
+        if let markerView = view as? MKMarkerAnnotationView {
+            markerView.markerTintColor = pinColor
+        }
+        
+        view?.displayPriority = .required
+        view?.annotation = annotation
+        view?.canShowCallout = true
+        
+        return view
 	}
-	
+    
+
 	func selectLocationButton() -> UIButton {
 		let button = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
 //		button.setTitle(selectButtonTitle, for: UIControl.State())

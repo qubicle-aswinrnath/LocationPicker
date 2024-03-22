@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A58267DE2BAD7AF400229044 /* SnackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58267DD2BAD7AF400229044 /* SnackBar.swift */; };
 		B62463051B68A4DE00646DE2 /* LocationPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = B62463041B68A4DE00646DE2 /* LocationPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B62463251B68A56D00646DE2 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62463241B68A56D00646DE2 /* LocationPickerViewController.swift */; };
 		B624632C1B68A90900646DE2 /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624632B1B68A90900646DE2 /* LocationSearchResultsViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A58267DD2BAD7AF400229044 /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
 		B62462FF1B68A4DE00646DE2 /* LocationPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LocationPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B62463031B68A4DE00646DE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B62463041B68A4DE00646DE2 /* LocationPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				B62463041B68A4DE00646DE2 /* LocationPicker.h */,
 				B62463241B68A56D00646DE2 /* LocationPickerViewController.swift */,
 				B624632B1B68A90900646DE2 /* LocationSearchResultsViewController.swift */,
+				A58267DD2BAD7AF400229044 /* SnackBar.swift */,
 				B624632D1B68E25D00646DE2 /* Location.swift */,
 				B6D9F5151B9C9C670083EE55 /* SearchHistoryManager.swift */,
 				B67F38F81B9C793C003ADFC8 /* Images.xcassets */,
@@ -160,6 +163,7 @@
 			files = (
 				B6D9F5161B9C9C670083EE55 /* SearchHistoryManager.swift in Sources */,
 				B624632C1B68A90900646DE2 /* LocationSearchResultsViewController.swift in Sources */,
+				A58267DE2BAD7AF400229044 /* SnackBar.swift in Sources */,
 				B624632E1B68E25D00646DE2 /* Location.swift in Sources */,
 				B62463251B68A56D00646DE2 /* LocationPickerViewController.swift in Sources */,
 			);
