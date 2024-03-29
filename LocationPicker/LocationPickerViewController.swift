@@ -147,10 +147,15 @@ open class LocationPickerViewController: UIViewController {
 			locationButton = button
 		}
 	}
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+    }
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-
+        
         if #available(iOS 13.0, *), let navigationController = navigationController {
             let appearance = navigationController.navigationBar.standardAppearance
             appearance.backgroundColor = navigationController.navigationBar.barTintColor
@@ -189,7 +194,9 @@ open class LocationPickerViewController: UIViewController {
     
     open override func viewWillDisappear(_ animated: Bool) {
         // Resign first responder to avoid the search bar disappearing issue
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         searchController.isActive = false
+        TTGSnackbarManager.shared.dismiss()
     }
     
 	open override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -212,6 +219,7 @@ open class LocationPickerViewController: UIViewController {
 			setInitialLocation()
 			presentedInitialLocation = true
 		}
+        
 	}
 	
 	func setInitialLocation() {
