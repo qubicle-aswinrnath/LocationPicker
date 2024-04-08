@@ -44,7 +44,7 @@ open class LocationPickerViewController: UIViewController {
 	public var searchHistoryLabel = "Search History"
     
     /// default: "Select"
-    public var selectButtonTitle = "Select"
+//    public var selectButtonTitle = "Select"
 	
 	public lazy var currentLocationButtonBackground: UIColor = {
 		if let navigationBar = self.navigationController?.navigationBar,
@@ -401,7 +401,7 @@ extension LocationPickerViewController {
     func showSelectCurrentLocationDialog(location: CLLocation) {
         let alertController = UIAlertController(title: nil, message: "Select current location as your address?", preferredStyle: .actionSheet)
         
-        let selectAction = UIAlertAction(title: "Select", style: .default) { _ in
+        let selectAction = UIAlertAction(title: addressSelectionBtnTitle, style: .default) { _ in
             self.selectLocation(location: location)
         }
         alertController.addAction(selectAction)
